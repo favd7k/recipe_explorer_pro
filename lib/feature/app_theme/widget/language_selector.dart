@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
+import '../../../providers/recipe_provider.dart';
 
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});
@@ -9,24 +11,25 @@ class LanguageSelector extends StatelessWidget {
     return ListTile(
       leading: const Icon(Icons.language),
       title: Text('settings.language').tr(),
-      trailing: DropdownButton<Locale>(
-        value: context.locale,
-        onChanged: (Locale? newLocale) {
-          if (newLocale != null) {
-            context.setLocale(newLocale);
+      trailing: DropdownButton<String>(
+        value: context.locale.languageCode,
+        onChanged: (String? newValue) {
+          if (newValue != null) {
+            context.setLocale(Locale(newValue));
+            Provider.of<RecipeProvider>(context, listen: false).notifyListeners();
           }
         },
         items: const [
           DropdownMenuItem(
-            value: Locale('en'),
+            value: 'en',
             child: Text('English'),
           ),
           DropdownMenuItem(
-            value: Locale('ru'),
+            value: 'ru',
             child: Text('Русский'),
           ),
           DropdownMenuItem(
-            value: Locale('kk'),
+            value: 'kk',
             child: Text('Қазақша'),
           ),
         ],
