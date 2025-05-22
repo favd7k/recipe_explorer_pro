@@ -15,7 +15,7 @@ class AppThemeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Theme Settings"),
+        title: Text("settings.theme").tr(),
         centerTitle: true,
         elevation: 0,
       ),
@@ -24,7 +24,6 @@ class AppThemeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // ... другие элементы
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: BoxDecoration(
@@ -33,9 +32,9 @@ class AppThemeScreen extends StatelessWidget {
               ),
               child: SwitchListTile(
                 title: Text(
-                  "Enable Dark Mode",
+                  "settings.dark_mode",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                ),
+                ).tr(),
                 value: isDarkMode,
                 activeColor: Colors.amberAccent,
                 onChanged: (value) {
@@ -44,7 +43,7 @@ class AppThemeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const LanguageSelector(), // 🆕 добавлен сюда
+            const LanguageSelector(),
           ],
         ),
       ),

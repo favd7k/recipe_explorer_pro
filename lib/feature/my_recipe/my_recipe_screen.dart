@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/recipe_provider.dart';
 import '../../utils/routes/app_routes.dart';
 import '../../utils/theme/theme_container.dart';
 import '../favorite/widget/empty_search.dart';
-import '../home/widget/recipe_item.dart';
+import '../view_recipe/view_recipe_screen.dart';
 
 class MyRecipeScreen extends StatelessWidget {
   const MyRecipeScreen({super.key});
@@ -13,15 +12,13 @@ class MyRecipeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<RecipeProvider>(builder: (context, provider, child) {
-      final myRecipe =
-          provider.recipes.where((recipe) => recipe.isItMine).toList();
+      final myRecipe = provider.recipes.where((recipe) => recipe.isItMine).toList();
 
       return Scaffold(
         body: ThemeContainer(
           child: SafeArea(
               child: Column(
             children: [
-              //app bar
               Row(
                 children: [
                   IconButton(
@@ -39,25 +36,28 @@ class MyRecipeScreen extends StatelessWidget {
                   Spacer(),
                   IconButton(
                       icon: const Icon(Icons.add_box_outlined, size: 28),
-                      onPressed: () =>
-                          Navigator.pushNamed(context, AppRoutes.addRecipe)),
+                      onPressed: () => Navigator.pushNamed(context, AppRoutes.addRecipe)),
                 ],
               ),
-              //Search MY recipe
-
-              // List of my recipe
               Expanded(
                 child: myRecipe.isEmpty
-                    ? EmptyState(
-                        isFavorite: false,
-                      )
+                    ? EmptyState(isFavorite: false)
                     : ListView.builder(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         itemCount: myRecipe.length,
                         itemBuilder: (context, index) {
                           final recipe = myRecipe[index];
-                          return RecipeItem(recipe: recipe);
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewRecipeScreen(recipe: recipe),
+                                ),
+                              );
+                            },
+                            child: RecipeItem(recipe: recipe),
+                          );
                         },
                       ),
               ),
