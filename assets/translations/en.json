@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "Recipe Explorer",
+    "search": "Search recipes...",
+    "categories": "Categories",
+    "trending": "Trending",
+    "favorites": "Favorites",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Forgot Password?"
+  },
+  "recipe": {
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "category": "Category",
+    "area": "Area",
+    "add_to_favorites": "Add to Favorites"
+  },
+  "settings": {
+    "theme": "Theme",
+    "language": "Language",
+    "dark_mode": "Dark Mode",
+    "notifications": "Notifications"
+  }
+}

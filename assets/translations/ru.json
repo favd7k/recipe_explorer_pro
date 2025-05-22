@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "Поиск Рецептов",
+    "search": "Поиск рецептов...",
+    "categories": "Категории",
+    "trending": "Популярное",
+    "favorites": "Избранное",
+    "settings": "Настройки"
+  },
+  "auth": {
+    "login": "Вход",
+    "signup": "Регистрация",
+    "email": "Эл. почта",
+    "password": "Пароль",
+    "forgot_password": "Забыли пароль?"
+  },
+  "recipe": {
+    "ingredients": "Ингредиенты",
+    "instructions": "Инструкции",
+    "category": "Категория",
+    "area": "Регион",
+    "add_to_favorites": "Добавить в избранное"
+  },
+  "settings": {
+    "theme": "Тема",
+    "language": "Язык",
+    "dark_mode": "Темный режим",
+    "notifications": "Уведомления"
+  }
+}

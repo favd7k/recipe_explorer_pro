@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "Рецепт Іздеуші",
+    "search": "Рецепттерді іздеу...",
+    "categories": "Санаттар",
+    "trending": "Танымал",
+    "favorites": "Таңдаулылар",
+    "settings": "Параметрлер"
+  },
+  "auth": {
+    "login": "Кіру",
+    "signup": "Тіркелу",
+    "email": "Эл. пошта",
+    "password": "Құпия сөз",
+    "forgot_password": "Құпия сөзді ұмыттыңыз ба?"
+  },
+  "recipe": {
+    "ingredients": "Ингредиенттер",
+    "instructions": "Нұсқаулар",
+    "category": "Санат",
+    "area": "Аймақ",
+    "add_to_favorites": "Таңдаулыларға қосу"
+  },
+  "settings": {
+    "theme": "Тақырып",
+    "language": "Тіл",
+    "dark_mode": "Қараңғы режим",
+    "notifications": "Хабарландырулар"
+  }
+}
