@@ -12,57 +12,93 @@ class MyRecipeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<RecipeProvider>(builder: (context, provider, child) {
-      final myRecipe = provider.recipes.where((recipe) => recipe.isItMine).toList();
+      final myRecipes = provider.recipes.where((recipe) => recipe.isItMine).toList();
 
       return Scaffold(
         body: ThemeContainer(
           child: SafeArea(
-              child: Column(
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, size: 28),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  Spacer(),
-                  Text(
-                    "My Recipe",
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, size: 28),
+                      onPressed: () => Navigator.pop(context),
                     ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                      icon: const Icon(Icons.add_box_outlined, size: 28),
-                      onPressed: () => Navigator.pushNamed(context, AppRoutes.addRecipe)),
-                ],
-              ),
-              Expanded(
-                child: myRecipe.isEmpty
-                    ? EmptyState(isFavorite: false)
-                    : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        itemCount: myRecipe.length,
-                        itemBuilder: (context, index) {
-                          final recipe = myRecipe[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewRecipeScreen(recipe: recipe),
-                                ),
-                              );
-                            },
-                            child: RecipeItem(recipe: recipe),
-                          );
-                        },
+                    const Spacer(),
+                    const Text(
+                      "My Recipes",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
-              ),
-            ],
-          )),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.add_box_outlined, size: 28),
+                      onPressed: () => Navigator.pushNamed(context, AppRoutes.addRecipe),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: myRecipes.isEmpty
+                      ? const EmptyState(isFavorite: false)
+                      : ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          itemCount: myRecipes.length,
+                          itemBuilder: (context, index) {
+                            final recipe = myRecipes[index];
+                            return Card(
+                              elevation: 4,
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              child: ListTile(
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    recipe.thumbnailUrl,
+                                    width: 60,
+                                    height: 60,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                title: Text(recipe.name),
+                                subtitle: Text('${recipe.category} | ${recipe.area}'),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ViewRecipeScreen(recipe: recipe),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete, color: Colors.red),
+                                      onPressed: () => provider.deleteRecipe(recipe.id, context),
+                                    ),
+                                  ],
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ViewRecipeScreen(recipe: recipe),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     });
