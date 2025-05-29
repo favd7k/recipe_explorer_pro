@@ -3,7 +3,6 @@ description: '''Chef Brand is a cross-platform mobile application designed for f
 
 publish_to: 'none' 
 
-
 version: 1.0.0+1
 
 environment:
@@ -12,6 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.1
 
   animated_text_kit: ^4.2.2
   easy_localization: ^3.0.3
@@ -47,18 +49,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0
   hive_ce_generator: ^1.8.2
   build_runner: ^2.4.14
 
-
-# The following section is specific to Flutter packages.
 flutter:
-
+  generate: true
   uses-material-design: true
 
-  # Asset management
   assets:
     - assets/fonts/poppins/
     - assets/icons/

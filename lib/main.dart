@@ -1,11 +1,12 @@
 import 'dart:developer';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_explorer_pro/data/models/hive_registrar.g.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'data/handle/firebase_options.dart';
 import 'feature/notfoundscreen.dart';
 import 'providers/auth_provider.dart';
@@ -20,7 +21,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await EasyLocalization.ensureInitialized();
+
   try {
     final appDocumentDir = await getApplicationDocumentsDirectory();
 
@@ -35,23 +36,14 @@ void main() async {
   }
 
   runApp(
-    EasyLocalization(
-      supportedLocales: [
-        Locale('en'),
-        Locale('ru'),
-        Locale('kk'),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => RecipeProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
       ],
-      path: 'assets/translations',
-      fallbackLocale: Locale('en'),
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => AuthProvider()),
-          ChangeNotifierProvider(create: (context) => RecipeProvider()),
-          ChangeNotifierProvider(create: (context) => ThemeProvider()),
-          ChangeNotifierProvider(create: (context) => UserProvider()),
-        ],
-        child: MyApp(),
-      ),
+      child: MyApp(),
     ),
   );
 }
@@ -67,9 +59,17 @@ class MyApp extends StatelessWidget {
           title: 'Chef Brand',
           debugShowCheckedModeBanner: false,
           theme: themeProvider.currentTheme,
-          locale: context.locale,
-          supportedLocales: context.supportedLocales,
-          localizationsDelegates: context.localizationDelegates,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'),
+            Locale('ru'),
+            Locale('kk'),
+          ],
           initialRoute: AppRoutes.splash,
           routes: AppRoutes.routes,
           onGenerateRoute: AppRoutes.onGenerateRoute,
